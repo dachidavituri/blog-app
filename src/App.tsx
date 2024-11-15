@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import { ThemeProvider } from "&/theme/theme-provider";
 import Layout from "&/layout";
 import NotFound from "#/notFound";
 import Loading from "&/base/loading";
@@ -8,26 +9,28 @@ const HomePageView = lazy(() => import("./pages/home/views"));
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 const App: React.FC = () => {
   return (
-    <div className="w-screen h-screen bg-slate-900 flex flex-col">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/:lang" element={<Layout />}>
-            <Route
-              path="home"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <HomePageView />
-                </Suspense>
-              }
-            />
-            <Route path="sign-in" element={<AuthPageView />} />
-            <Route path="register" element={<Registration />} />
-          </Route>
-          <Route path="/" element={<Navigate to="/ka/home" />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className="w-screen h-screen  flex flex-col">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/:lang" element={<Layout />}>
+              <Route
+                path="home"
+                element={
+                  <Suspense fallback={<Loading />}>
+                    <HomePageView />
+                  </Suspense>
+                }
+              />
+              <Route path="sign-in" element={<AuthPageView />} />
+              <Route path="register" element={<Registration />} />
+            </Route>
+            <Route path="/" element={<Navigate to="/ka/home" />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </ThemeProvider>
   );
 };
 
