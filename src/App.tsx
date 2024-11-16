@@ -27,7 +27,7 @@ const App: React.FC = () => {
                   </Suspense>
                 }
               />
-              <Route path="sign-in" element={<AuthPageView />} />
+              <Route path="login" element={<AuthPageView />} />
               <Route path="register" element={<Registration />} />
             </Route>
             <Route path="/" element={<Navigate to="/ka/home" />} />
@@ -40,5 +40,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-

@@ -1,5 +1,6 @@
 import { ModeToggle } from "@/components/theme/mode-toggle";
-import { NavLink } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Link, NavLink } from "react-router-dom";
 const Header: React.FC = () => {
   return (
     <header className="w-full h-20 sticky top-0 bg-slate-700 flex items-center justify-between px-16">
@@ -12,7 +13,12 @@ const Header: React.FC = () => {
       >
         home
       </NavLink>
-      <ModeToggle />
+      <div className="flex justify-center items-center gap-3">
+        <Link to={"login"}>
+          <Button className="bg-blue-500 font-semibold">Sign In</Button>
+        </Link>
+        <ModeToggle />
+      </div>
     </header>
   );
 };

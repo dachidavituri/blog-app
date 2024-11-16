@@ -1,12 +1,10 @@
-
-
 export interface Item {
   title: string;
   author: string;
   description: string;
 }
-export interface BlogsProps{
-  data: Item[]
+export interface BlogsProps {
+  data: Item[];
 }
 
 export const data: Item[] = [

@@ -1,1 +1,1 @@
-export {default} from './authors'
+export { default } from "./authors";
