@@ -8,7 +8,6 @@ const HomePageView: React.FC = () => {
   const filteredBlogs = blogAuthor
     ? data.filter((blog) => blog.author === blogAuthor)
     : data;
-  console.log(filteredBlogs);
 
   return (
     <div className="flex justify-center items-center">
