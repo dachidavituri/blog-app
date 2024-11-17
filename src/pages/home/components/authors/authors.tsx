@@ -1,9 +1,5 @@
 import React from "react";
-
-interface AuthorProps {
-  authors: string[];
-  setAuthor: React.Dispatch<React.SetStateAction<string>>;
-}
+import { AuthorProps } from "@/data";
 
 const Author: React.FC<AuthorProps> = ({ authors, setAuthor }) => {
   return (

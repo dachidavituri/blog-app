@@ -11,9 +11,19 @@ import {
 export function ChangeLanguage() {
   const changeLanguageToKa = () => {
     i18n.changeLanguage("ka");
+    window.history.pushState(
+      null,
+      "",
+      "/ka" + window.location.pathname.substring(3),
+    );
   };
   const changeLanguageToEn = () => {
     i18n.changeLanguage("en");
+    window.history.pushState(
+      null,
+      "",
+      "/en" + window.location.pathname.substring(3),
+    );
   };
 
   return (

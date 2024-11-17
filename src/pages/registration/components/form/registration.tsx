@@ -1,34 +1,61 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useTranslation, Trans } from "react-i18next";
+import useCurrentLang from "@/i18n/currentLang";
 const RegistrationForm: React.FC = () => {
+  const { t } = useTranslation();
+  console.log(t("register.signup"));
+  const currentLang = useCurrentLang();
+  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
   return (
-    <form className="flex flex-col gap-3 bg-slate-400 p-5 rounded-2xl">
-      <h1 className="text-3xl">Sign up for Blog Platform</h1>
-      <p>Create your account to start blogging</p>
+    <form
+      className="flex flex-col gap-3 bg-slate-400 p-5 rounded-2xl w-[480px]"
+      onClick={submitForm}
+    >
+      <h1 className="text-3xl">
+        <Trans>register.signup</Trans>
+      </h1>
+      <p>
+        <Trans>register.create</Trans>
+      </p>
       <div>
-        <label>Name</label>
+        <label>
+          <Trans>register.name</Trans>
+        </label>
         <Input placeholder="John doe" />
       </div>
       <div>
-        <label>Email</label>
+        <label>
+          <Trans>register.email</Trans>
+        </label>
         <Input placeholder="john@example.com" />
       </div>
       <div>
-        <label>Password</label>
+        <label>
+          <Trans>register.password</Trans>
+        </label>
         <Input placeholder="Enter password" />
       </div>
       <div>
-        <label>Confirm password</label>
+        <label>
+          <Trans>register.cPassword</Trans>
+        </label>
         <Input placeholder="repeat password" />
       </div>
-      <Button className="bg-blue-600 font-bold text-white">Sign up</Button>
-      <p>Already have an acccount? </p>
+      <Button className="bg-blue-600 font-bold text-white">
+        <Trans>register.signupBtn</Trans>
+      </Button>
+      <p>
+        <Trans>register.acc</Trans>{" "}
+      </p>
       <Link
-        to={"/ka/login"}
+        to={`/${currentLang}/login`}
         className="text-blue-600 font-bold hover:underline"
       >
-        Log in
+        <Trans>register.login</Trans>
       </Link>
     </form>
   );
