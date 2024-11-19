@@ -13,6 +13,8 @@ import homeKa from "@/i18n/ka/home.json";
 import homeEn from "@/i18n/en/home.json";
 import aboutKa from "@/i18n/ka/about.json";
 import aboutEn from "@/i18n/en/about.json";
+import authorka from "@/i18n/ka/author.json";
+import authorEn from "@/i18n/en/author.json";
 const options = {
   order: ["path"],
   lookupFromPathIndex: 0,
@@ -38,6 +40,7 @@ i18n
           register: registerKa,
           home: homeKa,
           about: aboutKa,
+          author: authorka,
         },
       },
       en: {
@@ -48,6 +51,7 @@ i18n
           register: registerEn,
           home: homeEn,
           about: aboutEn,
+          author: authorEn,
         },
       },
     },
