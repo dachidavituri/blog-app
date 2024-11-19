@@ -1,17 +1,13 @@
 import React from "react";
 import { AuthorProps } from "@/data";
 
-const Author: React.FC<AuthorProps> = ({ authors, setAuthor }) => {
+const Author: React.FC<AuthorProps> = ({ authors }) => {
   return (
     <div className="bg-neutral-500 p-5 rounded-xl">
       <h2>Authors List:</h2>
       <ul className="flex flex-col gap-3">
         {authors.map((author, index) => (
-          <li
-            onClick={() => setAuthor(author)}
-            key={index}
-            className="cursor-pointer"
-          >
+          <li key={index} className="cursor-pointer">
             {author}
           </li>
         ))}

@@ -1,3 +1,7 @@
+import bookImg from "!/book (1).png";
+import peopleImg from "!/people.png";
+import innovate from "!/innovation.png";
+import learning from "!/coding.png";
 export interface Item {
   title: string;
   author: string;
@@ -8,7 +12,6 @@ export interface BlogsProps {
 }
 export interface AuthorProps {
   authors: string[];
-  setAuthor: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const data = [
@@ -17,4 +20,11 @@ export const data = [
   { title: "nineteenEightyFour" },
   { title: "prideAndPrejudice" },
   { title: "mobyDick" },
+];
+
+export const offers = [
+  { title: "Rich Content", img: bookImg },
+  { title: "Vibrant Community", img: peopleImg },
+  { title: "Cutting-edge Topics", img: innovate },
+  { title: "Collaborative Learning", img: learning },
 ];
