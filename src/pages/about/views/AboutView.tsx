@@ -4,7 +4,7 @@ import Story from "#/about/components/story";
 const AboutView: React.FC = () => {
   return (
     <div className="flex justify-center items-center">
-      <div className="max-w-[800px]">
+      <div className="max-w-[900px]">
         <About />
         <Offer />
         <Story />

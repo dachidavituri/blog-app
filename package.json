@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "format": "prettier . --write",
     "ts-check": "tsc -b",
-    "prepare": "husky"
+    "prepare": "husky",
+    "gen-supabase-types": "npx supabase gen types --lang=typescript --project-id sptcaizwcyzdwsrbhjoh --schema public > src/supabase/database.types.ts"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.1",
@@ -19,6 +20,8 @@
     "@radix-ui/react-hover-card": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.1",
+    "@supabase/supabase-js": "^2.46.1",
+    "@tanstack/react-query": "^5.60.6",
     "@types/node": "^22.9.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -47,6 +50,7 @@
     "husky": "^9.1.6",
     "postcss": "^8.4.49",
     "prettier": "3.3.3",
+    "supabase": "^1.223.10",
     "tailwindcss": "^3.4.15",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.11.0",

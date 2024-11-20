@@ -3,7 +3,7 @@ import { Trans, useTranslation } from "react-i18next";
 
 const About: React.FC = () => {
   const { t } = useTranslation();
-  console.log(t("aobut.about_title"));
+  console.log(t("about.about_title"));
   return (
     <div>
       <h1 className="text-4xl text-center">

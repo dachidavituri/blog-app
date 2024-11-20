@@ -15,7 +15,6 @@ const OfferCarousel: React.FC = () => {
     description: t(`about.offers.${offer.title}.description`),
     img: offer.img,
   }));
-  console.log(data);
   return (
     <Carousel className="mt-10 z-0">
       <CarouselContent className="gap-2">
