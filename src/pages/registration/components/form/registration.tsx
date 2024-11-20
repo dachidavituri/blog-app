@@ -8,7 +8,6 @@ import { useMutation } from "@tanstack/react-query";
 import { register } from "@/supabase/auth";
 const RegistrationForm: React.FC = () => {
   const { t } = useTranslation();
-  console.log(t("register.signup"));
   const currentLang = useCurrentLang();
   const [registerPayload, setRegisterPayload] = useState({
     email: "",
@@ -41,9 +40,7 @@ const RegistrationForm: React.FC = () => {
       className="flex flex-col gap-3 bg-slate-400 p-5 rounded-2xl w-[480px]"
       onClick={submitForm}
     >
-      <h1 className="text-3xl">
-        <Trans>register.signup</Trans>
-      </h1>
+      <h1 className="text-3xl">{t("register.signup")}</h1>
       <p>
         <Trans>register.create</Trans>
       </p>

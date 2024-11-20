@@ -7,14 +7,11 @@ import useCurrentLang from "@/i18n/currentLang";
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
-  console.log(t("Welcome to React"));
   const currentLang = useCurrentLang();
-  console.log(`current lang is `, currentLang);
-
   return (
     <header className="w-full h-20 sticky top-0 bg-slate-700 flex items-center justify-between px-16 py-6 z-10">
       <h1 className="text-2xl font-semibold uppercase">
-        <Trans>header.blogTitle</Trans>
+        {t("header.blogTitle")}
       </h1>
       <div className="flex gap-3">
         <NavLink to={`/${currentLang}/home`} className="uppercase">

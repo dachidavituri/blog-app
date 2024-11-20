@@ -22,7 +22,6 @@ const options = {
 const lngDetector = new LanguageDetector();
 const getInitialLanguage = () => {
   const pathLanguage = window.location.pathname.split("/")[1] || "ka";
-  console.log(pathLanguage);
   return pathLanguage === "ka" ? "ka" : "en";
 };
 

@@ -13,7 +13,6 @@ export const useTranslatedDataAuthor = () => {
     followers: parseInt(t(`author.authors.${dt.title}.followers`), 10),
     following: parseInt(t(`author.authors.${dt.title}.following`), 10),
     biography: t(`author.authors.${dt.title}.biography`),
-    skills: t(`author.authors.${dt.title}.skills`),
   }));
 
   return translatedDataAuthor;

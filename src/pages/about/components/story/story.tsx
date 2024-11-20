@@ -4,14 +4,11 @@ import { Link } from "react-router-dom";
 import { Trans, useTranslation } from "react-i18next";
 const Story: React.FC = () => {
   const { t } = useTranslation();
-  console.log(t("about.about_title"));
   const currentLang = useCurrentLang();
   return (
     <div className="mt-8 flex flex-col justify-center items-center">
       <div className="bg-slate-500 p-4 rounded-xl">
-        <h1 className="text-lg">
-          <Trans>about.story_title</Trans>
-        </h1>
+        <h1 className="text-lg">{t("about.story_title")}</h1>
         <p>
           <Trans>about.story_paragraph</Trans>
         </p>
