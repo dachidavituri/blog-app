@@ -21,6 +21,7 @@ const Form: React.FC = () => {
     avatar_url: "",
     phone: "",
   });
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "username") {
@@ -44,6 +45,14 @@ const Form: React.FC = () => {
         queryKey: ["profile-info"],
       });
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      if (error.message === "Username is already taken") {
+        setErrorMessage("Username is already taken.");
+      } else {
+        setErrorMessage("An error occurred. Please try again.");
+      }
+    },
   });
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -66,6 +75,7 @@ const Form: React.FC = () => {
           onChange={handleChange}
           required
         />
+        {errorMessage && <p className="text-red-700">{errorMessage}</p>}
       </div>
       <Tabs defaultValue="name_ka" className="w-full mt-3">
         <TabsList className="w-full">
