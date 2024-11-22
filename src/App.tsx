@@ -12,7 +12,9 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { loginAtom } from "./store";
 import { useSetAtom } from "jotai";
 import { supabase } from "./supabase";
-import AuthRegisterGuard from "./components/guard";
+import AuthRegisterGuard from "./components/guard/index";
+import ProfileGuard from "./components/guard/profileGuard";
+import ProfileView from "#/profile/view";
 const App: React.FC = () => {
   const setUser = useSetAtom(loginAtom);
   useEffect(() => {
@@ -65,6 +67,14 @@ const App: React.FC = () => {
                 }
               />
               <Route path="about" element={<AboutView />} />
+              <Route
+                path="profile"
+                element={
+                  <ProfileGuard>
+                    <ProfileView />
+                  </ProfileGuard>
+                }
+              ></Route>
               <Route path="author/:id" element={<AuthorView />} />
             </Route>
             <Route path="/" element={<Navigate to="/ka/home" />} />

@@ -6,9 +6,10 @@ import { Trans, useTranslation } from "react-i18next";
 import useCurrentLang from "@/i18n/currentLang";
 import { loginAtom } from "@/store";
 import { useAtomValue } from "jotai";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { logout } from "@/supabase/auth";
-
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { getProfile } from "@/supabase/account";
 const Header: React.FC = () => {
   const { t } = useTranslation();
   const currentLang = useCurrentLang();
@@ -16,6 +17,11 @@ const Header: React.FC = () => {
   const { mutate: logOut } = useMutation({
     mutationKey: ["logout"],
     mutationFn: logout,
+  });
+  const { data } = useQuery({
+    queryKey: ["profile-info", user?.user.id],
+    queryFn: async () => getProfile(user?.user.id ?? ""),
+    enabled: !!user?.user.id,
   });
   const handleLogOut = () => {
     logOut();
@@ -35,11 +41,23 @@ const Header: React.FC = () => {
       </div>
       <div className="flex justify-center items-center gap-3">
         {user ? (
-          <div
-            onClick={handleLogOut}
-            className="cursor-pointer hover:text-blue-400"
-          >
-            <Trans>header.logout</Trans>
+          <div className="flex justify-center items-center gap-4">
+            <Link to={`/${currentLang}/profile`}>
+              <Avatar>
+                <AvatarImage
+                  src={
+                    data && data[0].avatar_url ? data[0].avatar_url : undefined
+                  }
+                />
+                <AvatarFallback>PP</AvatarFallback>
+              </Avatar>
+            </Link>
+            <div
+              onClick={handleLogOut}
+              className="cursor-pointer hover:text-blue-400"
+            >
+              <Trans>header.logout</Trans>
+            </div>
           </div>
         ) : (
           <Link to={`/${currentLang}/login`}>
