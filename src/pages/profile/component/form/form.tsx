@@ -53,6 +53,9 @@ const Form: React.FC = () => {
         setErrorMessage("An error occurred. Please try again.");
       }
     },
+    onSuccess: () => {
+      setErrorMessage("");
+    },
   });
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
