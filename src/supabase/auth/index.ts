@@ -26,7 +26,7 @@ export const login = async ({
 
     return res;
   } catch (error) {
-    console.error("Login failed");
+    console.log("Login failed");
     throw error;
   }
 };

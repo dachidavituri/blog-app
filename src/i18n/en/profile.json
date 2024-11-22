@@ -5,5 +5,8 @@
   "surname": "Surname",
   "avatar": "Avatar",
   "phone": "Phone number",
-  "save": "Save"
+  "save": "Save",
+  "edit": "Edit Info",
+  "tableTitle": "User Information",
+  "editClose": "Close Form"
 }

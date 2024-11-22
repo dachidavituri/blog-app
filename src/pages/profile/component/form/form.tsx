@@ -7,8 +7,9 @@ import { useState } from "react";
 import { loginAtom } from "@/store";
 import { useAtomValue } from "jotai";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import { useQueryClient } from "@tanstack/react-query";
 const Form: React.FC = () => {
+  const queryClient = useQueryClient();
   const { t } = useTranslation();
   const user = useAtomValue(loginAtom);
   const [profilePayload, setProfilePayload] = useState({
@@ -38,6 +39,11 @@ const Form: React.FC = () => {
   const { mutate: handleProfile } = useMutation({
     mutationKey: ["profile"],
     mutationFn: fillProfileInfo,
+    onSettled: async () => {
+      return await queryClient.invalidateQueries({
+        queryKey: ["profile-info"],
+      });
+    },
   });
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,6 +64,7 @@ const Form: React.FC = () => {
           placeholder="Enter username"
           value={profilePayload.username}
           onChange={handleChange}
+          required
         />
       </div>
       <Tabs defaultValue="name_ka" className="w-full mt-3">
@@ -76,6 +83,7 @@ const Form: React.FC = () => {
             placeholder="Enter name in Georgian"
             value={profilePayload.name_ka}
             onChange={handleChange}
+            required
           />
         </TabsContent>
         <TabsContent value="name_en">
@@ -84,6 +92,7 @@ const Form: React.FC = () => {
             placeholder="Enter name in English"
             value={profilePayload.name_en}
             onChange={handleChange}
+            required
           />
         </TabsContent>
       </Tabs>
@@ -102,6 +111,7 @@ const Form: React.FC = () => {
             placeholder="Enter surname in Georgian"
             value={profilePayload.surname_ka}
             onChange={handleChange}
+            required
           />
         </TabsContent>
         <TabsContent value="surname_en">
@@ -110,6 +120,7 @@ const Form: React.FC = () => {
             placeholder="Enter surname in English"
             value={profilePayload.surname_en}
             onChange={handleChange}
+            required
           />
         </TabsContent>
       </Tabs>
@@ -121,6 +132,7 @@ const Form: React.FC = () => {
           placeholder="Enter phone number"
           value={profilePayload.phone}
           onChange={handleChange}
+          required
         />
       </div>
 
