@@ -6,7 +6,6 @@ import { fillProfileInfo } from "@/supabase/account";
 import { useState } from "react";
 import { loginAtom } from "@/store";
 import { useAtomValue } from "jotai";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQueryClient } from "@tanstack/react-query";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ProfileForm } from "@/data";
@@ -42,7 +41,7 @@ const Form: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
       if (error.message === "Username is already taken") {
-        setErrorMessage("Username is already taken.");
+        setErrorMessage("Username is already taken");
       } else {
         setErrorMessage("An error occurred. Please try again.");
       }
@@ -55,7 +54,7 @@ const Form: React.FC = () => {
   const onSubmit: SubmitHandler<ProfileForm> = (data) => {
     handleProfile({ ...data, id: user?.user.id });
   };
-
+  console.log(errors);
   return (
     <form
       className="flex flex-col gap-3 bg-slate-400 p-5 rounded-2xl w-[450px]"
@@ -68,7 +67,7 @@ const Form: React.FC = () => {
           control={control}
           name="username"
           rules={{
-            required: t("profile.usernameReqired"),
+            required: t("profile.usernameRequired"),
             minLength: {
               value: 4,
               message: t("profile.userMinLength"),
@@ -94,148 +93,129 @@ const Form: React.FC = () => {
           )}
         />
         {errorMessage && <p className="text-red-700">{errorMessage}</p>}
-        {errors.username && (
+        {!errorMessage && errors.username && (
           <span className="text-red-600 font-semibold">
             {errors.username.message}
           </span>
         )}
       </div>
-      <Tabs defaultValue="name_ka" className="w-full mt-3">
-        <TabsList className="w-full">
-          <TabsTrigger value="name_ka">
-            <label>{t("profile.name")} (Georgian)</label>
-          </TabsTrigger>
-          <TabsTrigger value="name_en">
-            <label>{t("profile.name")} (English)</label>
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="name_ka">
-          <Controller
-            control={control}
-            name="name_ka"
-            rules={{
-              required: t("profile.nameReq"),
-              minLength: {
-                value: 3,
-                message: t("profile.nameMinLength"),
-              },
-              maxLength: {
-                value: 10,
-                message: t("profile.nameMaxLength"),
-              },
-            }}
-            render={({ field }) => (
-              <Input
-                placeholder="Enter name in Georgian"
-                {...field}
-                className={`${errors.name_ka ? "border-red-600" : "border-gray-300"}`}
-              />
-            )}
+
+      <label>{t("profile.name")} (Georgian)</label>
+
+      <Controller
+        control={control}
+        name="name_ka"
+        rules={{
+          required: t("profile.nameReq"),
+          minLength: {
+            value: 3,
+            message: t("profile.nameMinLength"),
+          },
+          maxLength: {
+            value: 10,
+            message: t("profile.nameMaxLength"),
+          },
+        }}
+        render={({ field }) => (
+          <Input
+            placeholder="Enter name in Georgian"
+            {...field}
+            className={`${errors.name_ka ? "border-red-600" : "border-gray-300"}`}
           />
-          {errors.name_ka && (
-            <span className="text-red-600 font-semibold">
-              {errors.name_ka.message}
-            </span>
-          )}
-        </TabsContent>
-        <TabsContent value="name_en">
-          <Controller
-            control={control}
-            name="name_en"
-            rules={{
-              required: t("profile.nameReq"),
-              minLength: {
-                value: 3,
-                message: t("profile.nameMinLength"),
-              },
-              maxLength: {
-                value: 10,
-                message: t("profile.nameMaxLength"),
-              },
-            }}
-            render={({ field }) => (
-              <Input
-                placeholder="Enter name in English"
-                {...field}
-                className={`${errors.name_en ? "border-red-600" : "border-gray-300"}`}
-              />
-            )}
+        )}
+      />
+      {errors.name_ka && (
+        <span className="text-red-600 font-semibold">
+          {errors.name_ka.message}
+        </span>
+      )}
+      <label>{t("profile.name")} (English)</label>
+      <Controller
+        control={control}
+        name="name_en"
+        rules={{
+          required: t("profile.nameReq"),
+          minLength: {
+            value: 3,
+            message: t("profile.nameMinLength"),
+          },
+          maxLength: {
+            value: 10,
+            message: t("profile.nameMaxLength"),
+          },
+        }}
+        render={({ field }) => (
+          <Input
+            placeholder="Enter name in English"
+            {...field}
+            className={`${errors.name_en ? "border-red-600" : "border-gray-300"}`}
           />
-          {errors.name_en && (
-            <span className="text-red-600 font-semibold">
-              {errors.name_en.message}
-            </span>
-          )}
-        </TabsContent>
-      </Tabs>
-      <Tabs defaultValue="surname_ka" className="w-full mt-3">
-        <TabsList className="w-full">
-          <TabsTrigger value="surname_ka">
-            <label>{t("profile.surname")} (Georgian)</label>
-          </TabsTrigger>
-          <TabsTrigger value="surname_en">
-            <label>{t("profile.surname")} (English)</label>
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="surname_ka">
-          <Controller
-            control={control}
-            name="surname_ka"
-            rules={{
-              required: t("profile.surnameReq"),
-              minLength: {
-                value: 4,
-                message: t("profile.surnameMinLength"),
-              },
-              maxLength: {
-                value: 15,
-                message: t("profile.surnameMaxLength"),
-              },
-            }}
-            render={({ field }) => (
-              <Input
-                placeholder="Enter surname in Georgian"
-                {...field}
-                className={`${errors.surname_ka ? "border-red-600" : "border-gray-300"}`}
-              />
-            )}
+        )}
+      />
+      {errors.name_en && (
+        <span className="text-red-600 font-semibold">
+          {errors.name_en.message}
+        </span>
+      )}
+
+      <label>{t("profile.surname")} (Georgian)</label>
+
+      <Controller
+        control={control}
+        name="surname_ka"
+        rules={{
+          required: t("profile.surnameReq"),
+          minLength: {
+            value: 4,
+            message: t("profile.surnameMinLength"),
+          },
+          maxLength: {
+            value: 15,
+            message: t("profile.surnameMaxLength"),
+          },
+        }}
+        render={({ field }) => (
+          <Input
+            placeholder="Enter surname in Georgian"
+            {...field}
+            className={`${errors.surname_ka ? "border-red-600" : "border-gray-300"}`}
           />
-          {errors.surname_ka && (
-            <span className="text-red-600 font-semibold">
-              {errors.surname_ka.message}
-            </span>
-          )}
-        </TabsContent>
-        <TabsContent value="surname_en">
-          <Controller
-            control={control}
-            name="surname_en"
-            rules={{
-              required: t("profile.surnameReq"),
-              minLength: {
-                value: 4,
-                message: t("profile.surnameMinLength"),
-              },
-              maxLength: {
-                value: 15,
-                message: t("profile.surnameMaxLength"),
-              },
-            }}
-            render={({ field }) => (
-              <Input
-                placeholder="Enter surname in English"
-                {...field}
-                className={`${errors.surname_en ? "border-red-600" : "border-gray-300"}`}
-              />
-            )}
+        )}
+      />
+      {errors.surname_ka && (
+        <span className="text-red-600 font-semibold">
+          {errors.surname_ka.message}
+        </span>
+      )}
+      <label>{t("profile.surname")} (English)</label>
+      <Controller
+        control={control}
+        name="surname_en"
+        rules={{
+          required: t("profile.surnameReq"),
+          minLength: {
+            value: 4,
+            message: t("profile.surnameMinLength"),
+          },
+          maxLength: {
+            value: 15,
+            message: t("profile.surnameMaxLength"),
+          },
+        }}
+        render={({ field }) => (
+          <Input
+            placeholder="Enter surname in English"
+            {...field}
+            className={`${errors.surname_en ? "border-red-600" : "border-gray-300"}`}
           />
-          {errors.surname_en && (
-            <span className="text-red-600 font-semibold">
-              {errors.surname_en.message}
-            </span>
-          )}
-        </TabsContent>
-      </Tabs>
+        )}
+      />
+      {errors.surname_en && (
+        <span className="text-red-600 font-semibold">
+          {errors.surname_en.message}
+        </span>
+      )}
+
       <div>
         <label>{t("profile.phone")}</label>
         <Controller
