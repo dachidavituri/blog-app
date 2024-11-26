@@ -54,7 +54,6 @@ const Form: React.FC = () => {
   const onSubmit: SubmitHandler<ProfileForm> = (data) => {
     handleProfile({ ...data, id: user?.user.id });
   };
-  console.log(errors);
   return (
     <form
       className="flex flex-col gap-3 bg-slate-400 p-5 rounded-2xl w-[450px]"

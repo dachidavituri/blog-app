@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { ThemeProvider } from "&/theme/theme-provider";
 import Layout from "&/layout";
 import NotFound from "#/notFound";
@@ -17,9 +17,11 @@ import ProfileGuard from "./components/guard/profileGuard";
 import ProfileView from "#/profile/view";
 const App: React.FC = () => {
   const setUser = useSetAtom(loginAtom);
+  const [isLoading, setisLoading] = useState(true);
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session);
+      setisLoading(false);
     });
 
     const {
@@ -30,7 +32,9 @@ const App: React.FC = () => {
 
     return () => subscription.unsubscribe();
   }, [setUser]);
-
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="w-screen h-screen  flex flex-col overflow-x-hidden">
