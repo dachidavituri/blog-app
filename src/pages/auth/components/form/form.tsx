@@ -5,23 +5,20 @@ import { useTranslation, Trans } from "react-i18next";
 import useCurrentLang from "@/i18n/currentLang";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/supabase/auth";
-import { useState } from "react";
-
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 const AuthForm: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const currentLang = useCurrentLang();
-  const [loginPayload, setLoginPayload] = useState({
-    email: "",
-    password: "",
-  });
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setLoginPayload((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  interface AuthForm {
+    email: string;
+    password: string;
+  }
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AuthForm>({ defaultValues: { email: "", password: "" } });
   const { mutate: handleLogin } = useMutation({
     mutationKey: ["login"],
     mutationFn: login,
@@ -29,16 +26,14 @@ const AuthForm: React.FC = () => {
       navigate(`/${currentLang}/home`);
     },
   });
-  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!!loginPayload.email && !!loginPayload.password) {
-      handleLogin(loginPayload);
-    }
+  const onSubmit: SubmitHandler<AuthForm> = (data) => {
+    handleLogin(data);
   };
+
   return (
     <form
       className="flex flex-col gap-3 bg-slate-400 p-5 rounded-2xl w-[450px]"
-      onSubmit={submitForm}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <h1 className="text-3xl">{t("auth.login")}</h1>
       <p>
@@ -48,24 +43,64 @@ const AuthForm: React.FC = () => {
         <label>
           <Trans>auth.email</Trans>
         </label>
-        <Input
+        <Controller
           name="email"
-          placeholder="john@example.com"
-          value={loginPayload.email}
-          onChange={handleChange}
+          control={control}
+          rules={{
+            required: t("auth.emailRequired"),
+            minLength: {
+              value: 5,
+              message: t("auth.emailMinLength"),
+            },
+            maxLength: {
+              value: 30,
+              message: t("auth.emailMaxLength"),
+            },
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: t("auth.emailPattern"),
+            },
+          }}
+          render={({ field }) => (
+            <Input
+              {...field}
+              className={`${errors.email ? "border-red-500" : "border-gray-300"}`}
+            />
+          )}
         />
+        {errors.email ? (
+          <span className="text-red-600 font-semibold">
+            {errors.email.message}
+          </span>
+        ) : null}
       </div>
       <div>
         <label>
           <Trans>auth.password</Trans>
         </label>
-        <Input
+        <Controller
           name="password"
-          type="password"
-          placeholder="Enter password"
-          value={loginPayload.password}
-          onChange={handleChange}
+          control={control}
+          rules={{
+            required: t("auth.passRequired"),
+            minLength: {
+              value: 6,
+              message: t("auth.passMinLength"),
+            },
+          }}
+          render={({ field }) => (
+            <Input
+              {...field}
+              type="password"
+              className={`${errors.password ? "border-red-500" : "border-gray-300"}`}
+            />
+          )}
         />
+        {errors.password ? (
+          <span className="text-red-600 font-semibold">
+            {errors.password.message}
+          </span>
+        ) : null}
       </div>
       <Button className="bg-blue-600 font-bold text-white">
         <Trans>auth.loginBtn</Trans>
