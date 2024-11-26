@@ -43,18 +43,18 @@ const RegistrationForm: React.FC = () => {
           name="email"
           control={control}
           rules={{
-            required: t("auth.emailRequired"),
+            required: "auth.emailRequired",
             minLength: {
               value: 5,
-              message: t("auth.emailMinLength"),
+              message: "auth.emailMinLength",
             },
             maxLength: {
               value: 30,
-              message: t("auth.emailMaxLength"),
+              message: "auth.emailMaxLength",
             },
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: t("auth.emailPattern"),
+              message: "auth.emailPattern",
             },
           }}
           render={({ field }) => (
@@ -67,7 +67,7 @@ const RegistrationForm: React.FC = () => {
         />
         {errors.email && (
           <span className="text-red-600 font-semibold">
-            {errors.email.message}
+            {t(errors.email.message ?? "")}
           </span>
         )}
       </div>
@@ -79,10 +79,10 @@ const RegistrationForm: React.FC = () => {
           name="password"
           control={control}
           rules={{
-            required: t("auth.passRequired"),
+            required: "auth.passRequired",
             minLength: {
               value: 6,
-              message: t("auth.passMinLength"),
+              message: "auth.passMinLength",
             },
           }}
           render={({ field }) => (
@@ -96,7 +96,7 @@ const RegistrationForm: React.FC = () => {
         />
         {errors.password && (
           <span className="text-red-600 font-semibold">
-            {errors.password.message}
+            {t(errors.password.message ?? "")}
           </span>
         )}
       </div>
@@ -108,10 +108,10 @@ const RegistrationForm: React.FC = () => {
           name="repeatPassword"
           control={control}
           rules={{
-            required: t("auth.passRequired"),
+            required: "auth.passRequired",
             minLength: {
               value: 6,
-              message: t("auth.passMinLength"),
+              message: "auth.passMinLength",
             },
             validate: {
               matchesPassword: (value) => {
@@ -132,7 +132,7 @@ const RegistrationForm: React.FC = () => {
         />
         {errors.repeatPassword && (
           <span className="text-red-600 font-semibold">
-            {errors.repeatPassword.message}
+            {t(errors.repeatPassword.message ?? "")}
           </span>
         )}
       </div>

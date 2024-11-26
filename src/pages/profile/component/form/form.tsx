@@ -70,14 +70,14 @@ const Form: React.FC = () => {
           control={control}
           name="username"
           rules={{
-            required: t("profile.usernameRequired"),
+            required: "profile.usernameRequired",
             minLength: {
               value: 4,
-              message: t("profile.userMinLength"),
+              message: "profile.userMinLength",
             },
             maxLength: {
               value: 20,
-              message: t("profile.userMaxLength"),
+              message: "profile.userMaxLength",
             },
           }}
           render={({ field }) => (
@@ -99,7 +99,7 @@ const Form: React.FC = () => {
         {errorMessage && <p className="text-red-700">{errorMessage}</p>}
         {!errorMessage && errors.username && (
           <span className="text-red-600 font-semibold">
-            {errors.username.message}
+            {t(errors.username.message ?? "")}
           </span>
         )}
       </div>
@@ -108,14 +108,14 @@ const Form: React.FC = () => {
         control={control}
         name="name_ka"
         rules={{
-          required: t("profile.nameReq"),
+          required: "profile.nameReq",
           minLength: {
             value: 3,
-            message: t("profile.nameMinLength"),
+            message: "profile.nameMinLength",
           },
           maxLength: {
             value: 10,
-            message: t("profile.nameMaxLength"),
+            message: "profile.nameMaxLength",
           },
         }}
         render={({ field }) => (
@@ -128,7 +128,7 @@ const Form: React.FC = () => {
       />
       {errors.name_ka && (
         <span className="text-red-600 font-semibold">
-          {errors.name_ka.message}
+          {t(errors.name_ka.message ?? "")}
         </span>
       )}
       <label>{t("profile.name")} (English)</label>
@@ -136,14 +136,14 @@ const Form: React.FC = () => {
         control={control}
         name="name_en"
         rules={{
-          required: t("profile.nameReq"),
+          required: "profile.nameReq",
           minLength: {
             value: 3,
-            message: t("profile.nameMinLength"),
+            message: "profile.nameMinLength",
           },
           maxLength: {
             value: 10,
-            message: t("profile.nameMaxLength"),
+            message: "profile.nameMaxLength",
           },
         }}
         render={({ field }) => (
@@ -156,7 +156,7 @@ const Form: React.FC = () => {
       />
       {errors.name_en && (
         <span className="text-red-600 font-semibold">
-          {errors.name_en.message}
+          {t(errors.name_en.message ?? "")}
         </span>
       )}
 
@@ -166,14 +166,14 @@ const Form: React.FC = () => {
         control={control}
         name="surname_ka"
         rules={{
-          required: t("profile.surnameReq"),
+          required: "profile.surnameReq",
           minLength: {
             value: 4,
-            message: t("profile.surnameMinLength"),
+            message: "profile.surnameMinLength",
           },
           maxLength: {
             value: 15,
-            message: t("profile.surnameMaxLength"),
+            message: "profile.surnameMaxLength",
           },
         }}
         render={({ field }) => (
@@ -186,7 +186,7 @@ const Form: React.FC = () => {
       />
       {errors.surname_ka && (
         <span className="text-red-600 font-semibold">
-          {errors.surname_ka.message}
+          {t(errors.surname_ka.message ?? "")}
         </span>
       )}
       <label>{t("profile.surname")} (English)</label>
@@ -194,14 +194,14 @@ const Form: React.FC = () => {
         control={control}
         name="surname_en"
         rules={{
-          required: t("profile.surnameReq"),
+          required: "profile.surnameReq",
           minLength: {
             value: 4,
-            message: t("profile.surnameMinLength"),
+            message: "profile.surnameMinLength",
           },
           maxLength: {
             value: 15,
-            message: t("profile.surnameMaxLength"),
+            message: "profile.surnameMaxLength",
           },
         }}
         render={({ field }) => (
@@ -214,7 +214,7 @@ const Form: React.FC = () => {
       />
       {errors.surname_en && (
         <span className="text-red-600 font-semibold">
-          {errors.surname_en.message}
+          {t(errors.surname_en.message ?? "")}
         </span>
       )}
 
@@ -224,10 +224,10 @@ const Form: React.FC = () => {
           control={control}
           name="phone"
           rules={{
-            required: t("profile.phoneReq"),
+            required: "profile.phoneReq",
             pattern: {
               value: /^[0-9]{9}$/,
-              message: t("profile.phoneExactLength"),
+              message: "profile.phoneExactLength",
             },
           }}
           render={({ field }) => (
@@ -240,7 +240,7 @@ const Form: React.FC = () => {
         />
         {errors.phone && (
           <span className="text-red-600 font-semibold">
-            {errors.phone.message}
+            {t(errors.phone.message ?? "")}
           </span>
         )}
       </div>
