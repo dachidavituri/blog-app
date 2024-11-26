@@ -6,19 +6,16 @@ import useCurrentLang from "@/i18n/currentLang";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/supabase/auth";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { LoginForm } from "@/data";
 const AuthForm: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const currentLang = useCurrentLang();
-  interface AuthForm {
-    email: string;
-    password: string;
-  }
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthForm>({ defaultValues: { email: "", password: "" } });
+  } = useForm<LoginForm>({ defaultValues: { email: "", password: "" } });
   const { mutate: handleLogin } = useMutation({
     mutationKey: ["login"],
     mutationFn: login,
@@ -26,7 +23,7 @@ const AuthForm: React.FC = () => {
       navigate(`/${currentLang}/home`);
     },
   });
-  const onSubmit: SubmitHandler<AuthForm> = (data) => {
+  const onSubmit: SubmitHandler<LoginForm> = (data) => {
     handleLogin(data);
   };
 
@@ -64,6 +61,7 @@ const AuthForm: React.FC = () => {
           render={({ field }) => (
             <Input
               {...field}
+              placeholder="Enter email"
               className={`${errors.email ? "border-red-500" : "border-gray-300"}`}
             />
           )}
@@ -92,6 +90,7 @@ const AuthForm: React.FC = () => {
             <Input
               {...field}
               type="password"
+              placeholder="Enter password"
               className={`${errors.password ? "border-red-500" : "border-gray-300"}`}
             />
           )}

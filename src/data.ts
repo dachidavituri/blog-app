@@ -44,7 +44,15 @@ interface ProfileData {
   updated_at: string | null;
   username: string | null;
 }
-
+export interface LoginForm {
+  email: string;
+  password: string;
+}
+export interface RegisterForm {
+  email: string;
+  password: string;
+  repeatPassword: string;
+}
 export interface MainInfoProps {
   data: ProfileData[] | null | undefined;
 }

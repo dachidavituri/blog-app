@@ -7,5 +7,6 @@
   "cPassword": "Confirm password",
   "signupBtn": "Sign up",
   "acc": "Already have an acccount?",
-  "login": "Log in"
+  "login": "Log in",
+  "passwordsDontMatch": "Passwords do not match"
 }
