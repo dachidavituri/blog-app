@@ -66,11 +66,11 @@ const AuthForm: React.FC = () => {
             />
           )}
         />
-        {errors.email ? (
+        {errors.email && (
           <span className="text-red-600 font-semibold">
             {errors.email.message}
           </span>
-        ) : null}
+        )}
       </div>
       <div>
         <label>
@@ -95,11 +95,11 @@ const AuthForm: React.FC = () => {
             />
           )}
         />
-        {errors.password ? (
+        {errors.password && (
           <span className="text-red-600 font-semibold">
             {errors.password.message}
           </span>
-        ) : null}
+        )}
       </div>
       <Button className="bg-blue-600 font-bold text-white">
         <Trans>auth.loginBtn</Trans>

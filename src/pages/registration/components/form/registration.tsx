@@ -65,11 +65,11 @@ const RegistrationForm: React.FC = () => {
             />
           )}
         />
-        {errors.email ? (
+        {errors.email && (
           <span className="text-red-600 font-semibold">
             {errors.email.message}
           </span>
-        ) : null}
+        )}
       </div>
       <div>
         <label>
@@ -94,11 +94,11 @@ const RegistrationForm: React.FC = () => {
             />
           )}
         />
-        {errors.password ? (
+        {errors.password && (
           <span className="text-red-600 font-semibold">
             {errors.password.message}
           </span>
-        ) : null}
+        )}
       </div>
       <div>
         <label>
@@ -130,11 +130,11 @@ const RegistrationForm: React.FC = () => {
             />
           )}
         />
-        {errors.repeatPassword ? (
+        {errors.repeatPassword && (
           <span className="text-red-600 font-semibold">
             {errors.repeatPassword.message}
           </span>
-        ) : null}
+        )}
       </div>
       <Button className="bg-blue-600 font-bold text-white">
         <Trans>register.signupBtn</Trans>
