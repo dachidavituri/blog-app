@@ -16,8 +16,9 @@ const Form: React.FC = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
     setValue,
+    reset,
   } = useForm<ProfileForm>({
     defaultValues: {
       username: "",
@@ -53,6 +54,9 @@ const Form: React.FC = () => {
 
   const onSubmit: SubmitHandler<ProfileForm> = (data) => {
     handleProfile({ ...data, id: user?.user.id });
+    if (isSubmitSuccessful && !errorMessage) {
+      reset();
+    }
   };
   return (
     <form
@@ -85,6 +89,7 @@ const Form: React.FC = () => {
                   "avatar_url",
                   `https://api.dicebear.com/9.x/pixel-art/svg?seed=${e.target.value}`,
                 );
+                setErrorMessage("");
                 field.onChange(e);
               }}
               className={`${errors.username ? "border-red-600" : "border-gray-300"}`}
@@ -98,9 +103,7 @@ const Form: React.FC = () => {
           </span>
         )}
       </div>
-
       <label>{t("profile.name")} (Georgian)</label>
-
       <Controller
         control={control}
         name="name_ka"
