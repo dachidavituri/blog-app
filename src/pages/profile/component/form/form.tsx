@@ -16,7 +16,7 @@ const Form: React.FC = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
     setValue,
     reset,
   } = useForm<ProfileForm>({
@@ -48,15 +48,15 @@ const Form: React.FC = () => {
       }
     },
     onSuccess: () => {
+      console.log('success')
       setErrorMessage("");
+      if (Object.keys(errors).length == 0) {
+        reset();
+      }
     },
   });
-
   const onSubmit: SubmitHandler<ProfileForm> = (data) => {
     handleProfile({ ...data, id: user?.user.id });
-    if (isSubmitSuccessful && !errorMessage) {
-      reset();
-    }
   };
   return (
     <form
