@@ -48,7 +48,7 @@ const Form: React.FC = () => {
       }
     },
     onSuccess: () => {
-      console.log('success')
+      console.log("success")
       setErrorMessage("");
       if (Object.keys(errors).length == 0) {
         reset();
