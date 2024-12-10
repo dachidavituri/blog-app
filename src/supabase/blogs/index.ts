@@ -23,3 +23,8 @@ export const addBlog = async ({
     })
     .then((res) => console.log(`succesfully created`, res));
 };
+
+export const getBlogs = async () => {
+  const { data } = await supabase.from("blogs").select("*").throwOnError();
+  return data;
+};

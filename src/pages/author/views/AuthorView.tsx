@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import AboutAuthor from "#/author/components/aboutAuthor";
-import Articles from "#/author/components/articles";
+// import Articles from "#/author/components/articles";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslatedData } from "@/i18n/translatedData";
 import { useTranslatedDataAuthor } from "@/i18n/trasnaltedDataAuthor";
@@ -23,7 +23,7 @@ const AuthorView: React.FC = () => {
             <TabsTrigger value="about">About</TabsTrigger>
           </TabsList>
           <TabsContent value="articles">
-            <Articles authorName={authorObj?.author} />
+            {/* <Articles authorName={authorObj?.author} /> */}
           </TabsContent>
           <TabsContent value="about">
             <AboutDetail author={newAuthor} />

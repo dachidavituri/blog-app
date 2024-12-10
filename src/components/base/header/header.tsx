@@ -31,7 +31,7 @@ const Header: React.FC = () => {
       <h1 className="text-2xl font-semibold uppercase">
         {t("header.blogTitle")}
       </h1>
-      <div className="flex gap-3">
+      <div className="flex gap-6">
         <NavLink to={`/${currentLang}/home`} className="uppercase">
           <Trans>header.home</Trans>
         </NavLink>
