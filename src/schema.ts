@@ -4,6 +4,14 @@ export const blogFormShema = z.object({
   title_en: z.string().min(3, "blogValidation.title_en"),
   description_ka: z.string().min(15, "blogValidation.description_ka"),
   description_en: z.string().min(15, "blogValidation.description_en"),
-  image_url: z.string().min(1, "blogValidation.image_url"),
+  image_url: z.instanceof(File).refine((file) => file instanceof File, {
+    message: "blogValidation.image_url",
+  }),
 });
-export type BlogsFrom = z.infer<typeof blogFormShema>;
+export type BlogsForm = {
+  title_ka: string;
+  title_en: string;
+  description_ka: string;
+  description_en: string;
+  image_url: File | null;
+};

@@ -70,7 +70,7 @@ export const blogsDefaultValues = {
   title_en: "",
   description_ka: "",
   description_en: "",
-  image_url: "",
+  image_url: null,
 };
 export const data = [
   { id: "1", title: "theGreatGatsby" },
