@@ -15,6 +15,7 @@ import { supabase } from "./supabase";
 import AuthRegisterGuard from "./components/guard/index";
 import ProfileGuard from "./components/guard/profileGuard";
 import ProfileView from "#/profile/view";
+import CreteBlogsView from "#/write/views";
 const App: React.FC = () => {
   const setUser = useSetAtom(loginAtom);
   const [isLoading, setisLoading] = useState(true);
@@ -79,6 +80,7 @@ const App: React.FC = () => {
                   </ProfileGuard>
                 }
               ></Route>
+              <Route path="write" element={<CreteBlogsView />} />
               <Route path="author/:id" element={<AuthorView />} />
             </Route>
             <Route path="/" element={<Navigate to="/ka/home" />} />

@@ -17,6 +17,10 @@ import authorka from "@/i18n/ka/author.json";
 import authorEn from "@/i18n/en/author.json";
 import profileKa from "@/i18n/ka/profile.json";
 import profileEn from "@/i18n/en/profile.json";
+import blogKa from "@/i18n/ka/blogs.json";
+import blogEn from "@/i18n/en/blogs.json";
+import blogFormKa from "@/i18n/ka/blogForm.json";
+import blogFormEn from "@/i18n/en/blogForm.json";
 const options = {
   order: ["path"],
   lookupFromPathIndex: 0,
@@ -43,6 +47,8 @@ i18n
           about: aboutKa,
           author: authorka,
           profile: profileKa,
+          blog: blogKa,
+          blogValidation: blogFormKa,
         },
       },
       en: {
@@ -55,6 +61,8 @@ i18n
           about: aboutEn,
           author: authorEn,
           profile: profileEn,
+          blog: blogEn,
+          blogValidation: blogFormEn,
         },
       },
     },

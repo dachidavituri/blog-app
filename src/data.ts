@@ -65,6 +65,13 @@ export interface ProfileForm {
 export interface MainInfoProps {
   data: ProfileData[] | null | undefined;
 }
+export const blogsDefaultValues = {
+  title_ka: "",
+  title_en: "",
+  description_ka: "",
+  description_en: "",
+  image_url: "",
+};
 export const data = [
   { id: "1", title: "theGreatGatsby" },
   { id: "2", title: "toKillAMockingbird" },

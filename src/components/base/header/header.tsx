@@ -38,6 +38,9 @@ const Header: React.FC = () => {
         <NavLink to={`/${currentLang}/about`} className="uppercase">
           <Trans>header.about</Trans>
         </NavLink>
+        <NavLink to={`/${currentLang}/write`} className="uppercase">
+          <Trans>header.write</Trans>
+        </NavLink>
       </div>
       <div className="flex justify-center items-center gap-3">
         {user ? (

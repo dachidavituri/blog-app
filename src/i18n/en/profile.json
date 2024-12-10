@@ -20,5 +20,4 @@
   "surnameMaxLength": "Surname cannot be longer than 15 characters.",
   "phoneReq": "Phone number is required.",
   "phoneExactLength": "Phone number must be exactly 9 digits long."
-
 }
