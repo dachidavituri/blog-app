@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { supabase } from "..";
-
+import { queryClient } from "@/main";
 export const addBlog = async ({
   payload,
   user,
@@ -8,23 +8,41 @@ export const addBlog = async ({
   payload: any;
   user: any;
 }) => {
-  supabase.storage
-    .from("blog_images")
-    .upload(payload.image_url?.name, payload.image_url)
-    .then((res) => {
-      return supabase.from("blogs").insert({
-        title_ka: payload.title_ka,
-        title_en: payload.title_en,
-        description_ka: payload.description_ka,
-        description_en: payload.description_en,
-        image_url: res.data?.fullPath,
-        user_id: user?.user.id,
-      });
-    })
-    .then((res) => console.log(`succesfully created`, res));
+  try {
+    const res = await supabase.storage
+      .from("blog_images")
+      .upload(payload.image_url?.name, payload.image_url);
+
+    const insertRes = await supabase.from("blogs").insert({
+      title_ka: payload.title_ka,
+      title_en: payload.title_en,
+      description_ka: payload.description_ka,
+      description_en: payload.description_en,
+      image_url: res.data?.fullPath,
+      user_id: user?.user.id,
+    });
+
+    if (insertRes.error) {
+      throw new Error(insertRes.error.message);
+    }
+    console.log("Successfully created", insertRes);
+    queryClient.invalidateQueries({ queryKey: ["blog-list"] });
+  } catch (error) {
+    console.error("Error creating blog:", error);
+  }
 };
 
-export const getBlogs = async () => {
-  const { data } = await supabase.from("blogs").select("*").throwOnError();
+export const getBlogs = async ({
+  search,
+  currentlang,
+}: {
+  search: string;
+  currentlang: string;
+}) => {
+  const { data } = await supabase
+    .from("blogs")
+    .select("*")
+    .ilike(`${currentlang === "ka" ? "title_ka" : "title_en"}`, `%${search}%`)
+    .throwOnError();
   return data;
 };

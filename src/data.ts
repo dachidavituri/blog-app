@@ -65,6 +65,9 @@ export interface ProfileForm {
 export interface MainInfoProps {
   data: ProfileData[] | null | undefined;
 }
+export interface FilterValue {
+  search: string;
+}
 export const blogsDefaultValues = {
   title_ka: "",
   title_en: "",
