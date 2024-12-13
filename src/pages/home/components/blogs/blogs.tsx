@@ -1,14 +1,13 @@
 import { Input } from "@/components/ui/input";
 import { FilterValue } from "@/data";
 import useCurrentLang from "@/i18n/currentLang";
-import { supabase } from "@/supabase";
 import { getBlogs } from "@/supabase/blogs";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { FiSearch } from "react-icons/fi";
+import { Controller, useForm } from "react-hook-form";
+import { useDebounce } from "@uidotdev/usehooks";
 import { useSearchParams } from "react-router-dom";
 import qs from "qs";
+import { useEffect } from "react";
 const Blogs: React.FC = () => {
   const formatDate = (created_at: string) => {
     const dateObj = new Date(created_at);
@@ -20,34 +19,32 @@ const Blogs: React.FC = () => {
   const currentlang = useCurrentLang();
   const [searchParams, setSearchParams] = useSearchParams();
   const defaultFilterValues = qs.parse(searchParams.toString());
-  const searchQuery = (defaultFilterValues.search as string) || "";
+  const { control, watch } = useForm<FilterValue>({
+    defaultValues: defaultFilterValues || "",
+  });
+  const searched = watch("search");
+  const debouncedSearched = useDebounce(searched, 1000);
   const { data: blogsList } = useQuery({
-    queryKey: ["blog-list"],
-    queryFn: () => getBlogs({ search: searchQuery, currentlang }),
+    queryKey: ["blog-list", debouncedSearched],
+    queryFn: () => getBlogs({ search: debouncedSearched || "", currentlang }),
   });
-  const [filteredBlogs, setFilteredBlogs] = useState(blogsList);
-  const { control, handleSubmit } = useForm<FilterValue>({
-    defaultValues: defaultFilterValues,
-  });
-  const onSubmit: SubmitHandler<FilterValue> = (data) => {
-    setSearchParams(
-      qs.stringify(data, {
-        skipNulls: true,
-        filter: (_, value) => value || undefined,
-      }),
-    );
-    supabase
-      .from("blogs")
-      .select("*")
-      .ilike(
-        `${currentlang === "ka" ? "title_ka" : "title_en"}`,
-        `%${data.search}%`,
-      )
-      .throwOnError()
-      .then((res) => setFilteredBlogs(res.data));
-  };
-  const blogs =
-    filteredBlogs && filteredBlogs?.length > 0 ? filteredBlogs : blogsList;
+
+  useEffect(() => {
+    if (searched) {
+      setSearchParams(
+        qs.stringify(
+          { search: searched },
+          {
+            skipNulls: true,
+            filter: (_, value) => value || undefined,
+          },
+        ),
+      );
+    } else {
+      setSearchParams({}, { replace: true });
+    }
+  }, [searched, setSearchParams]);
+
   return (
     <div className="w-full">
       <form className="max-w-sm flex gap-3 justify-center items-center">
@@ -55,16 +52,16 @@ const Blogs: React.FC = () => {
           control={control}
           name="search"
           render={({ field }) => (
-            <Input {...field} placeholder="Enter search text" />
+            <Input
+              {...field}
+              placeholder="Enter search text"
+              value={field.value || ""}
+            />
           )}
-        />
-        <FiSearch
-          className="w-9 cursor-pointer h-7"
-          onClick={handleSubmit(onSubmit)}
         />
       </form>
       <div>
-        {blogs?.map((blog) => {
+        {blogsList?.map((blog) => {
           const imageUrl = blog.image_url
             ? `${import.meta.env.VITE_SUPABASE_IMAGE_STORAGE}/${blog.image_url}`
             : "";
