@@ -10,8 +10,12 @@ import qs from "qs";
 import { useEffect } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import i18n from "i18next";
+import "dayjs/locale/ka";
+import "dayjs/locale/en";
 dayjs.extend(relativeTime);
 const Blogs: React.FC = () => {
+  dayjs.locale(i18n.language);
   const formatDate = (time: string) => {
     const now = dayjs();
     const postDate = dayjs(time);
