@@ -8,13 +8,17 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { useSearchParams } from "react-router-dom";
 import qs from "qs";
 import { useEffect } from "react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 const Blogs: React.FC = () => {
-  const formatDate = (created_at: string) => {
-    const dateObj = new Date(created_at);
-    const day = String(dateObj.getDate()).padStart(2, "0");
-    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-    const year = dateObj.getFullYear();
-    return `${day}.${month}.${year}`;
+  const formatDate = (time: string) => {
+    const now = dayjs();
+    const postDate = dayjs(time);
+    const oneDay = now.diff(postDate, "day") < 1;
+    const timePassed = postDate.fromNow();
+    const fullDate = postDate.format("HH:mm - DD/MM/YYYY");
+    return { oneDay, timePassed, fullDate };
   };
   const currentlang = useCurrentLang();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,7 +32,6 @@ const Blogs: React.FC = () => {
     queryKey: ["blog-list", debouncedSearched],
     queryFn: () => getBlogs({ search: debouncedSearched || "", currentlang }),
   });
-
   useEffect(() => {
     if (searched) {
       setSearchParams(
@@ -65,7 +68,7 @@ const Blogs: React.FC = () => {
           const imageUrl = blog.image_url
             ? `${import.meta.env.VITE_SUPABASE_IMAGE_STORAGE}/${blog.image_url}`
             : "";
-          const fullDate = formatDate(blog.created_at);
+          const { oneDay, timePassed, fullDate } = formatDate(blog.created_at);
           return (
             <div
               className="bg-slate-600 m-5 p-2 rounded-2xl flex gap-6"
@@ -83,7 +86,7 @@ const Blogs: React.FC = () => {
                       : blog.description_en}
                   </p>
                 </div>
-                <p>{fullDate}</p>
+                <p>{oneDay ? timePassed : fullDate}</p>
               </div>
             </div>
           );
