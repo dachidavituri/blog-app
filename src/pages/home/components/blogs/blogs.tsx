@@ -13,17 +13,10 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import i18n from "i18next";
 import "dayjs/locale/ka";
 import "dayjs/locale/en";
+import { formatDate } from "@/lib/formatDate";
 dayjs.extend(relativeTime);
 const Blogs: React.FC = () => {
   dayjs.locale(i18n.language);
-  const formatDate = (time: string) => {
-    const now = dayjs();
-    const postDate = dayjs(time);
-    const oneDay = now.diff(postDate, "day") < 1;
-    const timePassed = postDate.fromNow();
-    const fullDate = postDate.format("HH:mm - DD/MM/YYYY");
-    return { oneDay, timePassed, fullDate };
-  };
   const currentlang = useCurrentLang();
   const [searchParams, setSearchParams] = useSearchParams();
   const defaultFilterValues = qs.parse(searchParams.toString());
