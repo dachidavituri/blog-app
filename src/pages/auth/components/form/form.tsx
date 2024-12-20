@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { login } from "@/supabase/auth";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { LoginForm } from "@/data";
+import { MAIN_PATH } from "@/routes/root-layout/index.enum";
 const AuthForm: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const AuthForm: React.FC = () => {
     mutationKey: ["login"],
     mutationFn: login,
     onSuccess: () => {
-      navigate(`/${currentLang}/home`);
+      navigate(`/${currentLang}/${MAIN_PATH.HOME}`);
     },
   });
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
@@ -108,7 +109,7 @@ const AuthForm: React.FC = () => {
         <Trans>auth.acc</Trans>{" "}
       </p>
       <Link
-        to={`/${currentLang}/register`}
+        to={`/${currentLang}/${MAIN_PATH.REGISTER}`}
         className="text-blue-600 font-bold hover:underline"
       >
         <Trans>auth.signup</Trans>

@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import useCurrentLang from "@/i18n/currentLang";
 import { Textarea } from "@/components/ui/textarea";
 import { useQueryClient } from "@tanstack/react-query";
+import { MAIN_PATH } from "@/routes/root-layout/index.enum";
 const CreateForm: React.FC = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
@@ -32,7 +33,7 @@ const CreateForm: React.FC = () => {
     mutationKey: ["add-blog"],
     mutationFn: (variables: { payload: any; user: any }) => addBlog(variables),
     onSuccess: () => {
-      navigate(`/${currentLang}/home`);
+      navigate(`/${currentLang}/${MAIN_PATH.HOME}`);
       queryClient.invalidateQueries({ queryKey: ["blog-list"] });
     },
   });

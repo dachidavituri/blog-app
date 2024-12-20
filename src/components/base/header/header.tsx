@@ -10,6 +10,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { logout } from "@/supabase/auth";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { getProfile } from "@/supabase/account";
+import { MAIN_PATH } from "@/routes/root-layout/index.enum";
 const Header: React.FC = () => {
   const { t } = useTranslation();
   const currentLang = useCurrentLang();
@@ -32,20 +33,26 @@ const Header: React.FC = () => {
         {t("header.blogTitle")}
       </h1>
       <div className="flex gap-6">
-        <NavLink to={`/${currentLang}/home`} className="uppercase">
+        <NavLink to={`/${currentLang}/${MAIN_PATH.HOME}`} className="uppercase">
           <Trans>header.home</Trans>
         </NavLink>
-        <NavLink to={`/${currentLang}/about`} className="uppercase">
+        <NavLink
+          to={`/${currentLang}/${MAIN_PATH.ABOUT}`}
+          className="uppercase"
+        >
           <Trans>header.about</Trans>
         </NavLink>
-        <NavLink to={`/${currentLang}/write`} className="uppercase">
+        <NavLink
+          to={`/${currentLang}/${MAIN_PATH.WRITE}`}
+          className="uppercase"
+        >
           <Trans>header.write</Trans>
         </NavLink>
       </div>
       <div className="flex justify-center items-center gap-3">
         {user ? (
           <div className="flex justify-center items-center gap-4">
-            <Link to={`/${currentLang}/profile`}>
+            <Link to={`/${currentLang}/${MAIN_PATH.PROFILE}`}>
               <Avatar>
                 <AvatarImage
                   src={
@@ -63,7 +70,7 @@ const Header: React.FC = () => {
             </div>
           </div>
         ) : (
-          <Link to={`/${currentLang}/login`}>
+          <Link to={`/${currentLang}/${MAIN_PATH.LOGIN}`}>
             <Button className="bg-blue-500 font-semibold">
               <Trans>header.sign</Trans>
             </Button>

@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { register } from "@/supabase/auth";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { RegisterForm } from "@/data";
+import { MAIN_PATH } from "@/routes/root-layout/index.enum";
 const RegistrationForm: React.FC = () => {
   const { t } = useTranslation();
   const currentLang = useCurrentLang();
@@ -143,7 +144,7 @@ const RegistrationForm: React.FC = () => {
         <Trans>register.acc</Trans>{" "}
       </p>
       <Link
-        to={`/${currentLang}/login`}
+        to={`/${currentLang}/${MAIN_PATH.LOGIN}`}
         className="text-blue-600 font-bold hover:underline"
       >
         <Trans>register.login</Trans>

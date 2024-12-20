@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Trans, useTranslation } from "react-i18next";
 import { useAtomValue } from "jotai";
 import { loginAtom } from "@/store";
+import { MAIN_PATH } from "@/routes/root-layout/index.enum";
 const Story: React.FC = () => {
   const { t } = useTranslation();
   const currentLang = useCurrentLang();
@@ -22,7 +23,7 @@ const Story: React.FC = () => {
             <Trans>about.join_us_title</Trans>
           </h1>
           <Button asChild className="bg-cyan-600 mt-3 font-semibold uppercase">
-            <Link to={`/${currentLang}/register`}>
+            <Link to={`/${currentLang}/${MAIN_PATH.REGISTER}`}>
               <Trans>about.get_started_button</Trans>
             </Link>
           </Button>
